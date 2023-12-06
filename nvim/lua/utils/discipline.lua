@@ -1,9 +1,4 @@
 local M = {}
-local ffi = require("ffi")
-
-ffi.cdef([[
-myNotify(fun arg1, string arg2, )
-]])
 
 function M.cowboy()
   ---@type table?
