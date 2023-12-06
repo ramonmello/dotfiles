@@ -5,6 +5,9 @@
 local Util = require("lazyvim.util")
 local keymap = vim.keymap
 
+local discipline = require("utils.discipline")
+discipline.cowboy()
+
 -- lazygit
 -- TODO: Open lazygit with correct colorscheme
 keymap.set("n", "<leader>gg", function()
