@@ -4,17 +4,14 @@ shell = "/opt/homebrew/bin/fish"
 size = 15
 
 [font.normal]
-# family = "MesloLGM Nerd Font"
-# family = "Monaspace Neon"
 family = "MonaspiceNe Nerd Font"
-style = "Light"
+style = "Regular"
 
 [window]
-opacity = 0.9
+opacity = 0.78
 blur = true
-dimensions = { columns = 160, lines = 50 }
-# startup_mode = 
-startup_mode = "Maximized" # Other options Windowed, Maximized, Fullscreen and SimpleFullscreen
+dimensions = { columns = 140, lines = 40 }
+startup_mode = "Windowed"                  # Other options Windowed, Maximized, Fullscreen and SimpleFullscreen
 
 # Kanagawa Dragon Alacritty Colors
 [colors]
