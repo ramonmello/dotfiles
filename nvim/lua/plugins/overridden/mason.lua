@@ -5,6 +5,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "svelte-language-server",
         "astro-language-server",
+        "vue-language-server",
       })
     end,
   },
