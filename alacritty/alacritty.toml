@@ -8,10 +8,11 @@ family = "MonaspiceNe Nerd Font"
 style = "Regular"
 
 [window]
-opacity = 0.78
+opacity = 0.65
 blur = true
 dimensions = { columns = 140, lines = 40 }
 startup_mode = "Windowed"                  # Other options Windowed, Maximized, Fullscreen and SimpleFullscreen
+decorations = "Buttonless"
 
 # Kanagawa Dragon Alacritty Colors
 [colors]
