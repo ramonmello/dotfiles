@@ -1,14 +1,15 @@
 shell = "/opt/homebrew/bin/fish"
 
 [font]
-size = 15
+size = 18
+offset.x = 1
 
 [font.normal]
-family = "MonaspiceNe Nerd Font"
+family = "DankMono Nerd Font"
 style = "Regular"
 
 [window]
-opacity = 0.65
+opacity = 0.85
 blur = true
 dimensions = { columns = 140, lines = 40 }
 startup_mode = "Windowed"                  # Other options Windowed, Maximized, Fullscreen and SimpleFullscreen
