@@ -5,11 +5,22 @@ return {
       char = { "┆" },
       virtcolumn = "80",
       highlight = { "NonText" },
-    }
+    },
   },
   {
     "folke/noice.nvim",
-    enabled = false,
+    event = "VeryLazy",
+    opts = {
+      -- INFO: to avoid error in lsp.lua
+      lsp = {
+        hover = {
+          enabled = false,
+        },
+      },
+    },
+    dependencies = {
+      "rcarriga/nvim-notify",
+    },
   },
   {
     "j-hui/fidget.nvim",
