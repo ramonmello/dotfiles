@@ -1,17 +1,26 @@
 return {
+  -- {
+  --   "scottmckendry/cyberdream.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = function(_, opts)
+  --     opts.transparent = true
+  --     opts.italic_comments = true
+  --   end,
+  -- },
   {
-    "scottmckendry/cyberdream.nvim",
+    "oxfist/night-owl.nvim",
     lazy = false,
     priority = 1000,
     opts = function(_, opts)
-      opts.transparent = true
-      opts.italic_comments = true
+      opts.transparent_background = true
     end,
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "cyberdream",
+      -- colorscheme = "cyberdream",
+      colorscheme = "night-owl",
     },
   },
 }
