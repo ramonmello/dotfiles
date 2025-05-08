@@ -1,0 +1,35 @@
+
+add_newline = true
+
+format = "$directory$git_branch$character"
+
+[directory]
+style = "bold #f78a62"
+format = "[ $path ]($style)"
+
+[git_branch]
+symbol = ""
+style = "bold #f4a5c3"
+format = " [$symbol $branch]($style)"
+
+[character]
+success_symbol = "[❯](#44c0c3)"
+error_symbol = "[✗](#f78a62)"
+
+[username]
+style_user = "#a382ff"
+format = "[$user]($style)"
+
+[hostname]
+style = "#44c0c3"
+format = "[@$hostname]($style)"
+
+[time]
+disabled = false
+style = "#f4a5c3"
+format = "[$time]($style) "
+
+[cmd_duration]
+min_time = 1000
+style = "#f78a62"
+format = "took [$duration]($style)"

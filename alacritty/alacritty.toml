@@ -5,7 +5,7 @@ shell = "/opt/homebrew/bin/fish"
 TERM = "xterm-256color"
 
 [window]
-opacity = 0.95
+opacity = 0.85
 decorations = "Full"
 
 [window.padding]
@@ -20,39 +20,40 @@ family = "DankMono Nerd Font"
 style = "Regular"
 
 [cursor]
-style = "Beam"
+style = "Block"
 
-[colors.primary]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-
-[colors.cursor]
-text = "#1e1e2e"
-cursor = "#f5e0dc"
 
 [colors.selection]
-text = "#1e1e2e"
-background = "#f5e0dc"
+text = "#0e1128"
+background = "#f4e4c9"
+
+[colors.primary]
+background = "#0e1128"
+foreground = "#f4e4c9"
+
+[colors.cursor]
+text = "#0e1128"
+cursor = "#f4a5c3"
 
 [colors.normal]
-black = "#45475a"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#bac2de"
+black = "#1a1a1a"
+red = "#f78a62"
+green = "#44c0c3"
+yellow = "#f4a5c3"
+blue = "#a382ff"
+magenta = "#f4a5c3"
+cyan = "#44c0c3"
+white = "#f4e4c9"
 
 [colors.bright]
-black = "#585b70"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#a6adc8"
+black = "#3d3d3d"
+red = "#ff9a7a"
+green = "#6bcdcf"
+yellow = "#f6d3e0"
+blue = "#bba9ff"
+magenta = "#f6c4d6"
+cyan = "#90dadb"
+white = "#ffffff"
 
 [[keyboard.bindings]]
 key = "V"
