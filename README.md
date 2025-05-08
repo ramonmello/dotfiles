@@ -1,8 +1,7 @@
-# Dotfiles
-
-## Overview
-
-Configurações pessoais para ambiente de desenvolvimento terminal-first.
+<h1 align="center">
+  Dotfiles
+</h1>
+<p align="center">Configurações pessoais para ambiente de desenvolvimento terminal-first.</p>
 
 ## Preview
 ![new-settings](https://github.com/user-attachments/assets/0e2edb4e-895a-49d4-aa67-0fb9276aed0a)
