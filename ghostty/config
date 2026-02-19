@@ -1,0 +1,18 @@
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+theme = catppuccin-mocha
+background-blur-radius = 50
+background-opacity = 0.9
+window-decoration = true
+mouse-hide-while-typing = true
+window-height = 50
+window-width = 169
+
+font-family = "DankMono Nerd Font"
+font-size = 15
+
+command = /opt/homebrew/bin/nu 
