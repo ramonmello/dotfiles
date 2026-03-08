@@ -2,6 +2,7 @@ source ~/.local/share/atuin/init.nu
 
 # Aliases
 alias nv = nvim
+alias obsidian = cd ($env.HOME | path join "Library/Mobile Documents/iCloud~md~obsidian/Documents")
 
 # Yazi
 def --env y [...args] {
