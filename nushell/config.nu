@@ -4,6 +4,13 @@ source ~/.local/share/atuin/init.nu
 alias nv = nvim
 alias obsidian = cd ($env.HOME | path join "Library/Mobile Documents/iCloud~md~obsidian/Documents")
 
+def --wrapped theme [...args] {
+	let config_script = ($env.XDG_CONFIG_HOME | path join "scripts/theme")
+	let dotfiles_script = ($env.HOME | path join "dotfiles/scripts/theme")
+	let script = if ($config_script | path exists) { $config_script } else { $dotfiles_script }
+	^$script ...$args
+}
+
 # Yazi
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")

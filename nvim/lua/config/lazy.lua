@@ -1,3 +1,5 @@
+local theme = require("config.theme")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -17,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = "minimal-dark" } },
+    { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = theme.colorscheme() } },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -30,7 +32,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "minimal-dark" } },
+  install = { colorscheme = { theme.colorscheme() } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update

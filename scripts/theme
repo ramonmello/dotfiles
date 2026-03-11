@@ -1,0 +1,165 @@
+#!/bin/sh
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
+ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+
+THEME_FILE="$ROOT_DIR/nvim/lua/config/theme.lua"
+GHOSTTY_CONFIG="$ROOT_DIR/ghostty/config"
+STARSHIP_CONFIG="$ROOT_DIR/starship.toml"
+TMUX_CONFIG="$ROOT_DIR/tmux/tmux.conf"
+TMUX_THEME="$ROOT_DIR/tmux/theme.conf"
+TMUX_THEME_DARK="$ROOT_DIR/tmux/theme-dark.conf"
+TMUX_THEME_LIGHT="$ROOT_DIR/tmux/theme-light.conf"
+YAZI_THEME="$ROOT_DIR/yazi/theme.toml"
+YAZI_THEME_BASE="$ROOT_DIR/yazi/theme.base.toml"
+
+usage() {
+  echo "usage: theme [dark|light|toggle|status]" >&2
+  exit 1
+}
+
+current_variant() {
+  perl -ne 'print "$1\n" if /variant = "(dark|light)"/' "$THEME_FILE" | head -n 1
+}
+
+replace_in_file() {
+  file=$1
+  pattern=$2
+  replacement=$3
+  PATTERN=$pattern REPLACEMENT=$replacement perl -0pi -e 's/$ENV{PATTERN}/$ENV{REPLACEMENT}/g' "$file"
+}
+
+copy_file() {
+  src=$1
+  dest=$2
+  cp "$src" "$dest"
+}
+
+ensure_yazi_base_theme() {
+  if [ ! -f "$YAZI_THEME_BASE" ]; then
+    copy_file "$YAZI_THEME" "$YAZI_THEME_BASE"
+  fi
+}
+
+render_tmux_theme() {
+  variant=$1
+
+  case "$variant" in
+    dark) copy_file "$TMUX_THEME_DARK" "$TMUX_THEME" ;;
+    light) copy_file "$TMUX_THEME_LIGHT" "$TMUX_THEME" ;;
+  esac
+
+  if command -v tmux >/dev/null 2>&1; then
+    tmux source-file "$TMUX_CONFIG" >/dev/null 2>&1 || true
+  fi
+}
+
+render_yazi_theme() {
+  variant=$1
+
+  ensure_yazi_base_theme
+  copy_file "$YAZI_THEME_BASE" "$YAZI_THEME"
+
+  case "$variant" in
+    dark)
+      perl -0pi -e '
+        my %map = (
+          "#11111b" => "#1e2021",
+          "#1e1e2e" => "#282828",
+          "#313244" => "#3c3836",
+          "#45475a" => "#504945",
+          "#585b70" => "#665c54",
+          "#6c7086" => "#7c6f64",
+          "#74c7ec" => "#83a598",
+          "#7f849c" => "#bdae93",
+          "#89b4fa" => "#458588",
+          "#89dceb" => "#8ec07c",
+          "#9399b2" => "#ad958b",
+          "#94e2d5" => "#689d6a",
+          "#a6e3a1" => "#98971a",
+          "#bac2de" => "#fbf1c7",
+          "#cba6f7" => "#d3869b",
+          "#cdd6f4" => "#fb4934",
+          "#eba0ac" => "#2e1d1d",
+          "#f2cdcd" => "#b16286",
+          "#f38ba8" => "#cc241d",
+          "#f5c2e7" => "#d65d0e",
+          "#f5e0dc" => "#d79921",
+          "#f9e2af" => "#fabd2f",
+          "#fab387" => "#b8bb26",
+          "#ffffff" => "#ffffff",
+        );
+        s/#[0-9a-fA-F]{6}/($map{lc $&} || $&)/ge;
+      ' "$YAZI_THEME"
+      replace_in_file "$YAZI_THEME" 'syntect_theme = "~/.config/yazi/[^"]+"' 'syntect_theme = "~/.config/yazi/minimal-dark.tmTheme"'
+      ;;
+    light)
+      perl -0pi -e '
+        my %map = (
+          "#11111b" => "#eee8d5",
+          "#1e1e2e" => "#fdf6e3",
+          "#313244" => "#e9e1c8",
+          "#45475a" => "#d0cab8",
+          "#585b70" => "#c4bda8",
+          "#6c7086" => "#93a1a1",
+          "#74c7ec" => "#1a72b5",
+          "#7f849c" => "#586e75",
+          "#89b4fa" => "#268bd2",
+          "#89dceb" => "#1e8a82",
+          "#9399b2" => "#d0cab8",
+          "#94e2d5" => "#2aa198",
+          "#a6e3a1" => "#859900",
+          "#bac2de" => "#073642",
+          "#cba6f7" => "#585da8",
+          "#cdd6f4" => "#c82825",
+          "#eba0ac" => "#fbe7e5",
+          "#f2cdcd" => "#6c71c4",
+          "#f38ba8" => "#dc322f",
+          "#f5c2e7" => "#cb4b16",
+          "#f5e0dc" => "#b58900",
+          "#f9e2af" => "#9e7800",
+          "#fab387" => "#6b7a00",
+          "#ffffff" => "#ffffff",
+        );
+        s/#[0-9a-fA-F]{6}/($map{lc $&} || $&)/ge;
+      ' "$YAZI_THEME"
+      replace_in_file "$YAZI_THEME" 'syntect_theme = "~/.config/yazi/[^"]+"' 'syntect_theme = "~/.config/yazi/minimal-light.tmTheme"'
+      ;;
+  esac
+}
+
+set_variant() {
+  variant=$1
+
+  replace_in_file "$THEME_FILE" 'variant = "(dark|light)"' "variant = \"$variant\""
+  replace_in_file "$GHOSTTY_CONFIG" 'theme = minimal-(dark|light)' "theme = minimal-$variant"
+  replace_in_file "$STARSHIP_CONFIG" 'palette = "minimal_(dark|light)"' "palette = \"minimal_$variant\""
+  render_tmux_theme "$variant"
+  render_yazi_theme "$variant"
+
+  echo "theme: $variant"
+}
+
+command=${1:-toggle}
+
+case "$command" in
+  dark|light)
+    set_variant "$command"
+    ;;
+  toggle)
+    current=$(current_variant)
+    if [ "$current" = "light" ]; then
+      set_variant "dark"
+    else
+      set_variant "light"
+    fi
+    ;;
+  status)
+    echo "theme: $(current_variant)"
+    ;;
+  *)
+    usage
+    ;;
+esac
