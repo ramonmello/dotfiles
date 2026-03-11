@@ -1,6 +1,6 @@
 return {
   {
-    dir = vim.fn.expand("~/dotfiles/custom-plugins/minimal.nvim"),
+    dir = vim.fn.expand("~/Codes/minimal.nvim"),
     name = "minimal.nvim",
     priority = 1000,
     lazy = false,
